@@ -14,3 +14,8 @@ class Cleaner:
         if drop_columns:
             self.dataframe = self.dataframe.drop(columns=drop_columns)
 
+
+
+    ''' drop the uncategorized tweets '''
+    def drop_uncategorized_tweets(self):
+        self.dataframe.dropna(subset=self.category_col, inplace=True)
