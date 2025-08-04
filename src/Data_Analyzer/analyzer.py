@@ -16,27 +16,24 @@ class Analyzer:
 
         sum_categorized_tweets = sum(tweets_number_dict.values())
         tweets_number_dict['uncategorized'] = len(self.dataframe[self.category_col]) - sum_categorized_tweets
-        tweets_number_dict['sum_tweets'] = sum(tweets_number_dict.values())
+        tweets_number_dict['total_tweets'] = sum(tweets_number_dict.values())
 
         return tweets_number_dict
 
 
     ''' analyze 2 - average tweet length each tweet '''
     def get_avg_tweet_len(self):
-        avg_tweet_len_dict = {}
+        total_avg = float(self.dataframe[self.text_col].map(lambda text: len(text.split())).sum()) / self.total_df_len
+        avg_tweet_len_dict = {'total_avg': total_avg}
 
         for category in self.category_values:
 
             category_df = self.dataframe[self.dataframe[self.category_col] == category]
-
             category_len = len(category_df)
-
-            category_avg = sum(category_df[self.text_col].map(lambda text: len(text.split()))) / category_len
+            category_avg = float(category_df[self.text_col].map(lambda text: len(text.split())).sum()) / category_len
 
             avg_tweet_len_dict[category] = category_avg
 
-
-        avg_tweet_len_dict['total_avg'] = sum(self.dataframe[self.text_col].map(lambda text: len(text.split()))) / self.total_df_len
         return avg_tweet_len_dict
 
 
@@ -77,12 +74,12 @@ class Analyzer:
     ''' analyze 5 - number of uppercase words each category and total '''
     def uppercase_words_number(self):
         total_uppercase = pd.Series(" ".join(self.dataframe[self.text_col].values).split())
-        uppercase_num_dict = {"total_uppercase": sum(total_uppercase.str.isupper())}
+        uppercase_num_dict = {"total_uppercase": int(total_uppercase.str.isupper().sum())}
 
         for category in self.category_values:
             categorized_df = self.dataframe[self.dataframe[self.category_col] == category]
             words_list = pd.Series(" ".join(categorized_df[self.text_col].values).split())
 
-            uppercase_num_dict[category] = sum(words_list.str.isupper())
+            uppercase_num_dict[category] = int(words_list.str.isupper().sum())
 
         return uppercase_num_dict
