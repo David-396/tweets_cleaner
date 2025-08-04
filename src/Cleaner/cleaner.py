@@ -4,6 +4,7 @@ class Cleaner:
     def __init__(self, dataframe : pd.DataFrame, category_col):
         self.dataframe = dataframe
         self.category_col = category_col
+        self.punctuation_marks = ['.', ',']
 
 
     ''' save or drop specified columns '''
@@ -14,7 +15,9 @@ class Cleaner:
         if drop_columns:
             self.dataframe = self.dataframe.drop(columns=drop_columns)
 
-
+    ''' converting column to lowercase '''
+    def col_to_lower(self, column):
+        self.dataframe[column] = self.dataframe[column].apply(lambda text: text.lower())
 
     ''' drop the uncategorized tweets '''
     def drop_uncategorized_tweets(self):
