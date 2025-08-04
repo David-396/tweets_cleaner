@@ -7,10 +7,7 @@ class Writer:
 
     @staticmethod
     def write_to_csv(target_path : str, dataframe : pd.DataFrame):
-        with open(target_path, 'w') as f:
-            writer = csv.writer(f)
-            print(dataframe)
-            writer.writerows(dataframe)
+        dataframe.to_csv(target_path)
 
     @staticmethod
     def write_to_json(target_path : str, json_data : dict):
