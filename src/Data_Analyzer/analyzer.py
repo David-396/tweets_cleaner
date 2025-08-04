@@ -58,16 +58,14 @@ class Analyzer:
     def most_common_words(self):
         all_words = {}
 
-        for i in range(len(self.dataframe)):
+        words_list = " ".join(self.dataframe[self.text_col].values).split()
 
-            words_list = self.dataframe[self.text_col][i].split()
+        for word in words_list:
 
-            for word in words_list:
-
-                if word in all_words:
-                    all_words[word] += 1
-                else:
-                    all_words[word] = 1
+            if word in all_words:
+                all_words[word] += 1
+            else:
+                all_words[word] = 1
 
 
         words_num_series = pd.Series(all_words)
@@ -76,4 +74,15 @@ class Analyzer:
         return words_num_series
 
 
+    ''' analyze 5 - number of uppercase words each category and total '''
+    def uppercase_words_number(self):
+        total_uppercase = pd.Series(" ".join(self.dataframe[self.text_col].values).split())
+        uppercase_num_dict = {"total_uppercase": sum(total_uppercase.str.isupper())}
 
+        for category in self.category_values:
+            categorized_df = self.dataframe[self.dataframe[self.category_col] == category]
+            words_list = pd.Series(" ".join(categorized_df[self.text_col].values).split())
+
+            uppercase_num_dict[category] = sum(words_list.str.isupper())
+
+        return uppercase_num_dict
