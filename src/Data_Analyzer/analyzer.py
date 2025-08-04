@@ -39,3 +39,18 @@ class Analyzer:
         return avg_tweet_len_dict
 
 
+    ''' analyze 3 - most 3 biggest tweets in words '''
+    def longest_three_tweets(self):
+        categorized_longest_three_tweets = {}
+
+        for category in self.category_values:
+            categorized_df = self.dataframe[self.dataframe == category]
+
+            categorized_df['Len_Text'] = categorized_df[self.text_col].apply(lambda text: len(text.split()))
+            longest_tweets = categorized_df.sort_values(by='Len_Text', ascending=False).head(3).to_dict()
+            categorized_longest_three_tweets[category] = longest_tweets
+
+        return categorized_longest_three_tweets
+
+
+
