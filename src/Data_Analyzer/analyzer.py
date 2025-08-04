@@ -5,6 +5,7 @@ class Analyzer:
         self.dataframe = dataframe
         self.category_col = category_col
         self.text_col = text_col
+
         self.category_values = dataframe[self.category_col].unique()
         self.total_df_len = len(self.dataframe)
 
@@ -39,18 +40,40 @@ class Analyzer:
         return avg_tweet_len_dict
 
 
-    ''' analyze 3 - most 3 biggest tweets in words '''
+    ''' analyze 3 - most 3 biggest tweets in chars '''
     def longest_three_tweets(self):
         categorized_longest_three_tweets = {}
 
         for category in self.category_values:
             categorized_df = self.dataframe[self.dataframe == category]
 
-            categorized_df['Len_Text'] = categorized_df[self.text_col].apply(lambda text: len(text.split()))
+            categorized_df['Len_Text'] = categorized_df[self.text_col].apply(lambda text: len(text))
             longest_tweets = categorized_df.sort_values(by='Len_Text', ascending=False).head(3).to_dict()
             categorized_longest_three_tweets[category] = longest_tweets
 
         return categorized_longest_three_tweets
+
+
+    ''' analyze 4 - the most 10 common words in the text '''
+    def most_common_words(self):
+        all_words = {}
+
+        for i in range(len(self.dataframe)):
+
+            words_list = self.dataframe[self.text_col][i].split()
+
+            for word in words_list:
+
+                if word in all_words:
+                    all_words[word] += 1
+                else:
+                    all_words[word] = 1
+
+
+        words_num_series = pd.Series(all_words)
+        words_num_series = words_num_series.sort_values(ascending=False).head(10).to_dict()
+
+        return words_num_series
 
 
 
