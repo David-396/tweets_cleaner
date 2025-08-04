@@ -74,8 +74,8 @@ class Analyzer:
         uppercase_num_dict = {"total_uppercase": int(total_uppercase.str.isupper().sum())}
 
         for category in self.category_values:
-            categorized_df = self.dataframe[self.dataframe[self.category_col] == category]
-            words_list = pd.Series(" ".join(categorized_df[self.text_col].values).split())
+            categorized_df = self.dataframe[self.dataframe[self.category_col] == category][self.text_col]
+            words_list = pd.Series(" ".join(categorized_df.values).split())
 
             uppercase_num_dict[category] = int(words_list.str.isupper().sum())
 
