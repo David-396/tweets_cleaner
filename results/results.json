@@ -1,0 +1,50 @@
+{
+    "tweets_number": {
+        "0": 5691,
+        "1": 1250,
+        "uncategorized": 0,
+        "total": 6941
+    },
+    "average_tweet_len": {
+        "total": 28.304422993804927,
+        "1": 0.0,
+        "0": 0.0
+    },
+    "longest_3_tweets": {
+        "1": {
+            "TweetID": {},
+            "Username": {},
+            "Text": {},
+            "CreateDate": {},
+            "Biased": {},
+            "Keyword": {},
+            "Len_Text": {}
+        },
+        "0": {
+            "TweetID": {},
+            "Username": {},
+            "Text": {},
+            "CreateDate": {},
+            "Biased": {},
+            "Keyword": {},
+            "Len_Text": {}
+        }
+    },
+    "most_common_words": {
+        "the": 7490,
+        "to": 4473,
+        "of": 4372,
+        "and": 3588,
+        "Jews": 3499,
+        "in": 3232,
+        "a": 2886,
+        "is": 2379,
+        "for": 1671,
+        "are": 1484
+    },
+    "uppercase_words_number": {
+        "total_uppercase": 7085,
+        "1": 0,
+        "0": 0
+    }
+}
