@@ -1,7 +1,7 @@
 import pandas as pd
 
 class Cleaner:
-    def __init__(self, dataframe : pd.DataFrame, category_col):
+    def __init__(self, dataframe : pd.DataFrame, category_col : str):
         self.dataframe = dataframe
         self.category_col = category_col
         self.punctuation_marks = ['.', ',']
@@ -14,6 +14,11 @@ class Cleaner:
 
         if drop_columns:
             self.dataframe = self.dataframe.drop(columns=drop_columns)
+
+    ''' removing punctuation marks '''
+    def remove_punctuation_marks(self, column):
+        for mark in self.punctuation_marks:
+            self.dataframe[column] = self.dataframe[column].apply(lambda text: text.replace(mark, ''))
 
     ''' converting column to lowercase '''
     def col_to_lower(self, column):
