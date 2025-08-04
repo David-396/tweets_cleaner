@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 class Analyzer:
@@ -6,7 +7,7 @@ class Analyzer:
         self.category_col = category_col
         self.text_col = text_col
 
-        self.category_values = [str(val) for val in dataframe[self.category_col].unique()]
+        self.category_values = dataframe[self.category_col].unique()
         self.total_df_len = len(self.dataframe)
 
 
@@ -26,15 +27,12 @@ class Analyzer:
         avg_tweet_len_dict = {'total': total_avg}
 
         for category in self.category_values:
-
             category_df = self.dataframe[self.dataframe[self.category_col] == category]
             category_len = len(category_df)
 
             if category_len:
                 category_avg = float(category_df[self.text_col].map(lambda text: len(text.split())).sum()) / category_len
-                avg_tweet_len_dict[category] = category_avg
-            else:
-                avg_tweet_len_dict[category] = float(category_df[self.text_col].map(lambda text: len(text.split())).sum())
+                avg_tweet_len_dict[str(category)] = category_avg
 
         return avg_tweet_len_dict
 
@@ -47,7 +45,7 @@ class Analyzer:
 
             categorized_df['Len_Text'] = categorized_df[self.text_col].apply(lambda text: len(text))
             longest_tweets = categorized_df.sort_values(by='Len_Text', ascending=False).head(how_much).to_dict()
-            categorized_longest_three_tweets[category] = longest_tweets
+            categorized_longest_three_tweets[str(category)] = longest_tweets
 
         return categorized_longest_three_tweets
 
@@ -77,6 +75,6 @@ class Analyzer:
             categorized_df = self.dataframe[self.dataframe[self.category_col] == category][self.text_col]
             words_list = pd.Series(" ".join(categorized_df.values).split())
 
-            uppercase_num_dict[category] = int(words_list.str.isupper().sum())
+            uppercase_num_dict[str(category)] = int(words_list.str.isupper().sum())
 
         return uppercase_num_dict
