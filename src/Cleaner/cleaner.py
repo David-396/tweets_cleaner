@@ -2,7 +2,7 @@ import pandas as pd
 
 class Cleaner:
     def __init__(self, dataframe : pd.DataFrame, category_col : str):
-        self.dataframe = dataframe
+        self.dataframe = dataframe.copy()
         self.category_col = category_col
         self.punctuation_marks = ['.', ',']
 

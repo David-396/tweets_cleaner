@@ -3,7 +3,7 @@ import pandas as pd
 
 class Analyzer:
     def __init__(self, dataframe : pd.DataFrame, category_col : str, text_col : str):
-        self.dataframe = dataframe
+        self.dataframe = dataframe.copy()
         self.category_col = category_col
         self.text_col = text_col
 

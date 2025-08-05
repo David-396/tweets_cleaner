@@ -14,7 +14,7 @@ class Manager:
     ''' load to dataframe '''
     def load_to_df(self):
         loader = Loader(self.file_data_path)
-        self.dataframe = loader.dataframe
+        self.dataframe = loader.dataframe.copy()
 
     ''' analyze the data '''
     def data_analyze(self, category_col : str,
